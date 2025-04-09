@@ -3,6 +3,7 @@ import { Layout, RequireAuth } from "./routes/layout/layout";
 import Login from "./routes/login/login";
 import ProfilePage from "./routes/profilePage/profilePage";
 import Register from "./routes/Register/register";
+import ListPage from "./routes/listPage/listPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -18,6 +19,10 @@ function App() {
         {
           path:"/home",
           element:<HomePage/>
+        },
+        {
+          path:"/list",
+          element:<ListPage/>
         },
         {
           path:"/login",
