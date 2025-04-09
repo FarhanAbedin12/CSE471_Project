@@ -1,0 +1,76 @@
+@import "../../responsive.scss";
+.register {
+    height: 100%;
+    display: flex; //flex chilo
+    
+  
+    .formContainers {
+      flex: 3;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content:center;
+  
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 300px;
+  
+        input{
+          padding: 20px;
+          border: 1px solid gray;
+          border-radius: 5px;
+        }
+  
+        button{
+          padding: 20px;
+          border-radius: 5px;
+          border: none;
+          background-color: teal;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+  
+          &:disabled{
+            background-color: #BED9D8;
+            cursor: not-allowed;
+          }
+
+        }
+  
+        span{
+          color: rgba(255, 0, 0, 0.591);
+        }
+  
+        a{
+          font-size: 14px;
+          color: teal;
+          border-bottom: 1px solid rgb(114, 16, 219);
+          width: max-content;
+        }
+      }
+    }
+  
+    .imgContainer {
+      flex: 2;
+      background-color: #fcf5f3;  //right 
+      position: relative;
+      display: flex;
+      align-items: center;
+  
+      @include md {
+        display: none;
+      }
+  
+      img {
+        width: 110%;
+        position: absolute;
+        right: 0;
+  
+        @include lg {
+          width: 105%;
+        }
+      }
+    }
+  }
