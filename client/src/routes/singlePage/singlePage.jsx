@@ -1,5 +1,5 @@
 import "./singlePage.scss";
-import Slider from "../../components/slider/Slider";
+import Slider from "../../components/slider/slider";
 import Map from "../../components/map/map";
 import { singlePostData, userData } from "../../lib/dummydata";
 
