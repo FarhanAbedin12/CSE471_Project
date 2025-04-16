@@ -1,19 +1,32 @@
 import List from "../../components/list/List";
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Suspense, useContext, useEffect, useState } from "react";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
 import "./profilePage.scss";
 
 function ProfilePage() {
   const { updateUser, currentUser } = useContext(AuthContext);
-
   const [userPosts, setUserPosts] = useState([]);
-  const navigate = useNavigate();
-
+  const navigate = useNavigate()
   const handleAdmin = () => {
     navigate("/admin");
   };
+
+  useEffect(() => {
+    const handlePosts = async () => {
+      try {
+        const response = await apiRequest.get("/prop/");
+        const filteredData = response.data.filter(
+          (item) => item.userId === currentUser.id
+        );
+        setUserPosts(filteredData); 
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+    handlePosts();
+  }, [currentUser.id]);
 
   const handleLogout = async () => {
     try {
