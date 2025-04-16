@@ -12,7 +12,7 @@ function Card({ item, onDelete }) {
       const response = await apiRequest.delete(`/prop/${id}`);
       if (response.status === 200) {
         console.log("successfully deleted post");
-        onDelete(id);
+        // onDelete(id);
         window.location.reload();
       } else {
         console.error("Failed to delete post");
