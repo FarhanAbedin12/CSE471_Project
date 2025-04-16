@@ -4,6 +4,7 @@ import Login from "./routes/login/login";
 import ProfilePage from "./routes/profilePage/profilePage";
 import Register from "./routes/Register/register";
 import ListPage from "./routes/listPage/listPage";
+import SinglePage from "./routes/singlePage/singlePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
         {
           path:"/register",
           element:<Register/>
+        },
+        {
+          path:"/:id",
+          element:<SinglePage/>
         },
       ]
     },
