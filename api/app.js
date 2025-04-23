@@ -5,6 +5,7 @@ import authRoute from "./routes/auth.route.js";
 import propRoute from "./routes/prop.route.js";
 import testRoute from "./routes/test.routes.js"
 import userRoute from "./routes/user.route.js";
+import reservationRoutes from "./routes/reservation.route.js";
 
 
 const app = express();
@@ -19,6 +20,8 @@ app.use("/api/auth", authRoute);
 app.use("/api/prop", propRoute);
 app.use("/api/user", userRoute);
 app.use("/api/test", testRoute);
+app.use("/api/reservation", reservationRoutes);
+//app.use("/api/reservation", reservationRoutes);
 
 export default app;
 
