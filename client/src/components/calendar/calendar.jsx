@@ -2,7 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import apiRequest from "../../lib/apiRequest";
-
+import "./calendar.scss";
 
 function Calendar({ userId, propertyId }) {
   const [dateTime, setDateTime] = useState(new Date());

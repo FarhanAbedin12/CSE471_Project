@@ -1,7 +1,16 @@
-.calendar {
+/* calendar.module.scss */
+.calendar-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 25px;
+
+  input {
+    width: 300px; // Or whatever width you prefer
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
 
   button {
     padding: 8px 16px;
