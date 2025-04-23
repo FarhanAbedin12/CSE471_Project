@@ -83,34 +83,44 @@ nav {
         }
       }
 
-      .profile {
-        border-radius: 5px;
-        padding: 12px 24px;
-        background-color: #fece51;
-        cursor: pointer;
-        border: none;
-        position: relative;
-        &:hover {
-          background-color: #fece51;
-          color: white;
-          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-          transition: 0.3s;
-        }
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px; // adds space between text and icon
+  border-radius: 5px;
+  padding: 12px 24px;
+  background-color: #fece51;
+  cursor: pointer;
+  border: none;
+  position: relative;
 
-        .notification {
-          position: absolute;
-          top: -8px;
-          right: -8px;
-          background-color: red;
-          color: white;
-          border-radius: 50%;
-          width: 26px;
-          height: 26px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-      }
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color: #fece51;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: 0.3s;
+  }
+
+  .notification {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
     }
 
     .register {
