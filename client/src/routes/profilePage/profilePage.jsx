@@ -1,14 +1,18 @@
 import List from "../../components/list/List";
 import { Suspense, useContext, useEffect, useState } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate, Await } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
 import "./profilePage.scss";
+import Chat from "../../components/chat/chat"
+
 
 function ProfilePage() {
   const { updateUser, currentUser } = useContext(AuthContext);
   const [userPosts, setUserPosts] = useState([]);
   const navigate = useNavigate()
+  const data = useLoaderData();
+
   const handleAdmin = () => {
     navigate("/admin");
   };
@@ -76,13 +80,14 @@ function ProfilePage() {
       </div>
       <div className="chatContainer">
         <div className="wrapper">
-          <h3>Your Dream Property, Just a Tap Away</h3>
-          <h6>Discover, buy, and sell properties effortlessly with our app!</h6>
-          <h6>🏡 Find Your Perfect Home: Browse a curated collection of properties tailored to your preferences.</h6>
-          <h6>💼 Hassle-Free Selling: List your property and reach thousands of potential buyers.</h6>
-          <h6>📍 Stay Local, Go Global: Access properties in your neighborhood or explore international opportunities.</h6>
-          <h6>⚡ Instant Updates: Get real-time alerts on new listings and market trends.</h6>
-          <h6>Transform the way you deal with property—start your journey with us today!</h6>
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await
+              resolve={data.chatResponse}
+              errorElement={<p>Error loading chats!</p>}
+            >
+              {(chatResponse) => <Chat chats={chatResponse.data} />}
+            </Await>
+          </Suspense>
         </div>
       </div>
     </div>

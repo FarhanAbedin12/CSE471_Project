@@ -50,8 +50,9 @@ function App() {
       element:<RequireAuth/>,
       children:[
         {
-          path:"/profile",
-          element:<ProfilePage/>
+          path: "/profile",
+          element: <ProfilePage />,
+          loader: profilePageLoader,     
         },
         {
           path:"/profile/update",
