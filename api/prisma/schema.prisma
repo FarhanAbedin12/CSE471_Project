@@ -14,13 +14,15 @@ datasource db {
 }
 
 model User {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  email       String        @unique
-  username    String        @unique
-  password    String
-  avatar      String?
-  createdAt   DateTime      @default(now())
-  post        Post[] //single user multiple post thats why used an array
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  username  String   @unique
+  password  String
+  avatar    String?
+  createdAt DateTime @default(now())
+  chats Chat [] @relation(fields: [chatIDs],references: [id])
+  chatIDs String[] @db.ObjectId
+  post      Post[] //single user multiple post thats why used an array
   reservation Reservation[] // Add this line to link User to Reservation
 }
 
@@ -69,6 +71,29 @@ model PostDetail {
   restaurant Int?
   post       Post    @relation(fields: [postId], references: [id])
   postId     String  @unique @db.ObjectId
+}
+
+model Chat{
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    users User [] @relation(fields: [userIDs],references: [id])
+    userIDs String[] @db.ObjectId
+    createdAt DateTime @default(now())
+    seenBy String [] @db.ObjectId
+    messages Message  []
+    lastMessage String ?
+
+}
+
+
+model Message {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    text String
+    userId   String
+    chat Chat @relation(fields: [chatId],references: [id])
+    chatId String @db.ObjectId
+    seenBy String [] @db.ObjectId
+    createdAt DateTime @default(now())
+
 }
 
 model Reservation {
