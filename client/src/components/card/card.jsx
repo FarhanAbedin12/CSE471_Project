@@ -70,7 +70,12 @@ function Card({ item}) {
             </div>
           </div>
           <div className="icons">
-            <div className="icon">
+            {currentUser.id !== item.userId && (
+              <Link to={`/${item.id}`} className="icon">
+                <img src="/calender.png" alt="View post details" />
+              </Link>
+            )}
+          <div className="icon">
               <img src="/save.png" alt="" />
             </div>
             {(currentUser.id != item.userId) && (

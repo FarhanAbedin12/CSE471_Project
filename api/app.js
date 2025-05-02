@@ -7,7 +7,7 @@ import testRoute from "./routes/test.routes.js"
 import userRoute from "./routes/user.route.js";
 import chatRoute from "./routes/chat.route.js"
 import messageRoute from "./routes/message.route.js";
-
+import reservationRoutes from "./routes/reservation.route.js";
 
 const app = express();
 app.use(express.json());
@@ -20,6 +20,9 @@ app.use("/api/user", userRoute);
 app.use("/api/test", testRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
+app.use("/api/reservation", reservationRoutes);
+//app.use("/api/reservation", reservationRoutes);
+
 
 export default app;
 

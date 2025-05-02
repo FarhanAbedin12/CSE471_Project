@@ -23,27 +23,28 @@ model User {
   chats Chat [] @relation(fields: [chatIDs],references: [id])
   chatIDs String[] @db.ObjectId
   post      Post[] //single user multiple post thats why used an array
+  reservation Reservation[] // Add this line to link User to Reservation
 }
 
-
 model Post {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  price     Int
-  images    String[]
-  address   String
-  city      String
-  bedroom   Int
-  bathroom  Int
-  latitude  String
-  longitude String
-  type      Type
-  property  Property
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @db.ObjectId
-  postDetail PostDetail?
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  price       Int
+  images      String[]
+  address     String
+  city        String
+  bedroom     Int
+  bathroom    Int
+  latitude    String
+  longitude   String
+  type        Type
+  property    Property
+  createdAt   DateTime      @default(now())
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String        @db.ObjectId
+  postDetail  PostDetail?
   //savedPosts SavedPost[]
+  reservation Reservation[] // Add this line to create the relation
 }
 
 enum Type {
@@ -59,14 +60,14 @@ enum Property {
 }
 
 model PostDetail {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  desc String
-  utilities String?
-  pet String?
-  income String?
-  size Int?
-  school Int?
-  bus Int?
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  desc       String
+  utilities  String?
+  pet        String?
+  income     String?
+  size       Int?
+  school     Int?
+  bus        Int?
   restaurant Int?
   post       Post    @relation(fields: [postId], references: [id])
   postId     String  @unique @db.ObjectId
@@ -93,4 +94,15 @@ model Message {
     seenBy String [] @db.ObjectId
     createdAt DateTime @default(now())
 
+}
+
+model Reservation {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  propertyId   String   @db.ObjectId
+  userId       String   @db.ObjectId
+  reservedDate DateTime
+  user         User     @relation(fields: [userId], references: [id])
+  post         Post     @relation(fields: [propertyId], references: [id])
+
+  @@unique([propertyId, reservedDate]) // Ensure that a slot can only be reserved once per date
 }

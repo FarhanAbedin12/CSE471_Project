@@ -1,11 +1,13 @@
 import DOMPurify from "dompurify";
 import { useContext, useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import Map from "../../components/map/Map";
+import Map from "../../components/map/map";
 import Slider from "../../components/slider/Slider";
 import { AuthContext } from "../../context/AuthContext";
-import apiRequest from "../../lib/apiRequest";
+import "react-datepicker/dist/react-datepicker.css";
 import "./singlePage.scss";
+import Calendar from "../../components/calendar/calendar";
+
 
 
 function SinglePage() {
@@ -121,6 +123,14 @@ function SinglePage() {
                 <p>{post.postDetail.restaurant}m away</p>
               </div>
             </div>
+          </div>
+          <p className="title">Book your slot</p>
+          <div className = "date-range-calender">
+            {currentUser?.id !== post.userId && 
+            <Calendar 
+            propertyId={post.id}  // Pass post.id as propertyId to the Calendar component
+            userId={currentUser.id}  // Pass current user for reservation logic
+          />}
           </div>
           <p className="title">Location</p>
           <div className="mapContainer">
