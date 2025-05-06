@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import "./chat.scss";
 import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
+import { useNotificationStore } from "../../lib/notificationStore";
 import { format } from "timeago.js";
 import { SocketContext } from "../../context/SocketContext";
 
@@ -9,11 +10,13 @@ function Chat({ chats }) {
   const [chat, setChat] = useState(null);
   const { currentUser } = useContext(AuthContext);
   const { socket } = useContext(SocketContext);
+  const setNumber = useNotificationStore((state) => state.setNumber);
 
 
   const handleOpenChat = async (id, receiver) => {
     try {
       const res = await apiRequest("/chats/" + id);
+      console.log("Marking chat as read with ID:", res.data);
       if (!res.data.seenBy.includes(currentUser.id)) {
       }
       setChat({ ...res.data, receiver });
@@ -21,6 +24,11 @@ function Chat({ chats }) {
       console.log(err);
     }
   };
+
+  const handleCross = async(e) =>{
+    setChat(null)
+    window.location.reload();
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,16 +67,28 @@ function Chat({ chats }) {
         }
       });
     }
+
+    const count = chats?.filter(
+      (c) => !c.seenBy.includes(currentUser.id) && chat?.id !== c.id
+    ).length;
+    setNumber(count);
+
     return () => {
       socket.off("getMessage");
     };
-  }, [socket, chat]);
+  }, [socket, chats, currentUser, chat, setNumber]);
+
+  const unreadCount = chats?.filter(
+    (c) => !c.seenBy.includes(currentUser.id) && chat?.id !== c.id
+  ).length;
 
   return (
     <div className="chat">
       <div className="messages">
-        <h1>Messages</h1>
-        {chats?.map((c) => (
+      <h1>Messages</h1>
+      {chats?.map((c) => { 
+        console.log(unreadCount)
+        return (
           <div
             className="message"
             key={c.id}
@@ -84,7 +104,9 @@ function Chat({ chats }) {
             <span>{c.receiver.username}</span>
             <p>{c.lastMessage}</p>
           </div>
-        ))}
+        );
+      })}
+
       </div>
       {chat && (
         <div className="chatBox">
@@ -93,7 +115,7 @@ function Chat({ chats }) {
               <img src={chat.receiver.avatar || "noavatar.jpg"} alt="" />
               {chat.receiver.username}
             </div>
-            <span className="close" onClick={() => setChat(null)}>
+            <span className="close" onClick={() => handleCross()}>
               X
             </span>
           </div>

@@ -30,8 +30,13 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", ({ receiverId, data }) => {
     const receiver = getUser(receiverId);
-    io.to(receiver.socketId).emit("getMessage", data);
+    if (receiver && receiver.socketId) {
+      io.to(receiver.socketId).emit("getMessage", data);
+    } else {
+      console.log("Receiver not found or not online:", receiverId);
+    }
   });
+  
 
   socket.on("disconnect", () => {
     removeUser(socket.id);
