@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import { Await, useLoaderData } from "react-router-dom";
 import './listPage.scss'
-import Filter from '../../components/filter/Filter'
+import Filter from '../../components/filter/filter'
 import Map from '../../components/map/map'
 import Card from "../../components/card/card"
 
