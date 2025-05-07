@@ -6,18 +6,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./card.scss";
 
-function Card({ item}) {
+function Card({ item, onDelete }) {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handlePostDelete = async (id) => {
     try {
-      const response = await axios.delete(`/api/prop/${id}`);
+      const response = await apiRequest.delete(`/prop/${id}`);
       if (response.status === 200) {
         console.log("successfully deleted post");
+        onDelete(id);
         window.location.reload();
       } else {
-        console.error("Failed to delete post");
+        console.error("Failed to delete");
       }
     } catch (error) {
       console.error("Failed to delete post", error);
