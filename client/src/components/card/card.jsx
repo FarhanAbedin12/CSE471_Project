@@ -2,11 +2,13 @@ import apiRequest from "../../lib/apiRequest";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./card.scss";
 
 function Card({ item}) {
   const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handlePostDelete = async (id) => {
     try {
@@ -37,6 +39,7 @@ function Card({ item}) {
       await apiRequest.post(`/messages/${chatId}`, {
         text: `I am Interested to buy ${item.title}`,
       });
+      navigate("/profile");
   
     } catch (error) {
       console.error("Failed to initiate chat:", error);
