@@ -52,9 +52,6 @@ export const deleteUser = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
 
-  // if (id !== tokenUserId) {
-  //   return res.status(403).json({ message: "Not Authorized!" });
-  // }
   try {
     await prisma.user.delete({
       where: { id },
